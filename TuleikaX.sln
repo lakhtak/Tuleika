@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuleikaX", "TuleikaX\TuleikaX.csproj", "{7D107053-28DE-47D8-9E94-3BDF584157D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuleikaXContent", "TuleikaXContent\TuleikaXContent.contentproj", "{BAF750BD-0A4D-43F9-BE4F-21A8FA010B1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GifAnimation", "GifAnimation\GifAnimation.csproj", "{76B7215D-8172-4FF9-A1A9-4989B0D4C15B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GifAnimation.Pipeline", "GifAnimation.Pipeline\GifAnimation.Pipeline.csproj", "{9C683759-D9CF-423E-87B1-153097BE2820}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D107053-28DE-47D8-9E94-3BDF584157D5}.Debug|x86.ActiveCfg = Debug|x86
+		{7D107053-28DE-47D8-9E94-3BDF584157D5}.Debug|x86.Build.0 = Debug|x86
+		{7D107053-28DE-47D8-9E94-3BDF584157D5}.Release|x86.ActiveCfg = Release|x86
+		{7D107053-28DE-47D8-9E94-3BDF584157D5}.Release|x86.Build.0 = Release|x86
+		{BAF750BD-0A4D-43F9-BE4F-21A8FA010B1E}.Debug|x86.ActiveCfg = Debug|x86
+		{BAF750BD-0A4D-43F9-BE4F-21A8FA010B1E}.Release|x86.ActiveCfg = Release|x86
+		{76B7215D-8172-4FF9-A1A9-4989B0D4C15B}.Debug|x86.ActiveCfg = Debug|x86
+		{76B7215D-8172-4FF9-A1A9-4989B0D4C15B}.Debug|x86.Build.0 = Debug|x86
+		{76B7215D-8172-4FF9-A1A9-4989B0D4C15B}.Release|x86.ActiveCfg = Release|x86
+		{76B7215D-8172-4FF9-A1A9-4989B0D4C15B}.Release|x86.Build.0 = Release|x86
+		{9C683759-D9CF-423E-87B1-153097BE2820}.Debug|x86.ActiveCfg = Debug|x86
+		{9C683759-D9CF-423E-87B1-153097BE2820}.Debug|x86.Build.0 = Debug|x86
+		{9C683759-D9CF-423E-87B1-153097BE2820}.Release|x86.ActiveCfg = Debug|x86
+		{9C683759-D9CF-423E-87B1-153097BE2820}.Release|x86.Build.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
