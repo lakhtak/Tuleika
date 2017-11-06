@@ -30,7 +30,7 @@ namespace TuleikaX
         private const float InitialSize = 0.1f;
         private const float ChildSize = 0.05f;
         private const int ChildDistance = 20;
-        private const int MaxChildren = 30;
+        private const int MaxChildren = 100;
         private float _sealSize = InitialSize;
         private Vector2 _sealPosition;
         private float _sealAngle;
