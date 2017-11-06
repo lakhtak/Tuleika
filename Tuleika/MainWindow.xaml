@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="450" Width="1000">
     <Grid>
-        <Canvas x:Name="fieldCanvas" HorizontalAlignment="Left" Height="364" Margin="10,49,0,0" VerticalAlignment="Top" Width="772" Background="Black"/>
+        <Canvas x:Name="FieldCanvas" HorizontalAlignment="Left" Height="364" Margin="10,49,0,0" VerticalAlignment="Top" Width="772" Background="Black">
+            <MediaElement x:Name="SealMediaElement" Height="100" Canvas.Left="201" Canvas.Top="69" Width="100" Source="Resources\Seal.gif"/>
+        </Canvas>
         <Label Content="Длина тюля: " HorizontalAlignment="Left" Margin="787,49,0,0" VerticalAlignment="Top"/>
         <Label Content="Толщина тюля: " HorizontalAlignment="Left" Margin="787,77,0,0" VerticalAlignment="Top"/>
         <Label Content="Размер еды:" HorizontalAlignment="Left" Margin="787,105,0,0" VerticalAlignment="Top"/>

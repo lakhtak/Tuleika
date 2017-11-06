@@ -22,8 +22,8 @@ namespace Tuleika
             speedTextBox.IsEnabled = false;
             startButton.IsEnabled = false;
 
-            fieldCanvas.Children.RemoveRange(0, fieldCanvas.Children.Count);
-            var game = new Game(fieldCanvas, Convert.ToInt32(speedTextBox.Text), Convert.ToInt32(sealSizeTextBox.Text),
+            FieldCanvas.Children.RemoveRange(0, FieldCanvas.Children.Count);
+            var game = new Game(FieldCanvas, Convert.ToInt32(speedTextBox.Text), Convert.ToInt32(sealSizeTextBox.Text),
                 Convert.ToInt32(sealLengthTextBox.Text), Convert.ToInt32(foodSizeTextBox.Text),
                 Convert.ToInt32(foodCountTextBox.Text), scoreLabel);
             KeyDown += game.OnKeyPressed;
