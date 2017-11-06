@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Linq;
 
 namespace TuleikaX
 {
@@ -20,20 +21,22 @@ namespace TuleikaX
         //private GifAnimation.GifAnimation _foodImage;
 
         // seal
-        private const int MaxGrowth = 2;
+        private const int MaxGrowth = 3;
         private const float RotationSpeed = 0.05f;
         private const float MovingSpeed = 3.00f;
         const float GrowSpeed = 0.02f;
         private float _size = 0.1f;
+        private const float ChildSize = 0.05f;
+        private const int ChildDistance = 20;
+        private const int MaxChildren = 10;
         private Vector2 _sealPosition;
         private float _sealAngle;
-        private int _growth;
-        //private readonly List<SealChild> _children = new List<SealChild>();
+        private readonly List<SealChild> _children = new List<SealChild>();
 
         // food
         private float _foodSize = 0.2f;
         private Vector2 _foodPosition;
-        private Random random = new Random();
+        private Random _random = new Random();
         
         // game
         private bool _paused;
@@ -64,7 +67,7 @@ namespace TuleikaX
 
         private void CreateRandomFood()
         {
-            _foodPosition = new Vector2(random.Next(0, Window.ClientBounds.Width), random.Next(0, Window.ClientBounds.Height));
+            _foodPosition = new Vector2(_random.Next(0, Window.ClientBounds.Width), _random.Next(0, Window.ClientBounds.Height));
         }
 
         /// <summary>
@@ -109,9 +112,6 @@ namespace TuleikaX
                 CreateRandomFood();
                 _size += GrowSpeed;
                 _score++;
-                //_growth++;
-                //if (_growth > MaxGrowth)
-                //    _children.Add();
             }
 
             UpdateGifs(gameTime);
@@ -128,6 +128,9 @@ namespace TuleikaX
         private void MoveSeal()
         {
             _sealPosition += new Vector2((float)Math.Cos(_sealAngle), (float)Math.Sin(_sealAngle)) * MovingSpeed;
+            _children.Insert(0, new SealChild { Vector = _sealPosition, Angle = _sealAngle });
+            if (_children.Count > MaxChildren * ChildDistance)
+                _children.Remove(_children.Last());
             
             if (_sealPosition.X > Window.ClientBounds.Width)
                 _sealPosition.X = 0;
@@ -202,8 +205,16 @@ namespace TuleikaX
             //_spriteBatch.Draw(_foodImage.GetTexture(), _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
             _spriteBatch.Draw(_foodImage, _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
             //_spriteBatch.Draw(_sealImage.GetTexture(), _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size, SpriteEffects.None, 1);
-            _spriteBatch.Draw(_sealImage, _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size, SpriteEffects.None, 1);
-            
+            _spriteBatch.Draw(_sealImage, _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size + GrowSpeed * (_score % MaxGrowth), SpriteEffects.None, 1);
+
+            for (var i = 0; i < _score / MaxGrowth; i++)
+            {
+                if (_children.Count > ChildDistance * i)
+                {
+                    _spriteBatch.Draw(_sealImage, _children[ChildDistance * i].Vector, null, Color.White, _children[ChildDistance * i].Angle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), ChildSize, SpriteEffects.None, 1);
+                }
+            }
+
             _spriteBatch.DrawString(_font, "Score:" + _score, new Vector2(50, 50), Color.Black);
             
             _spriteBatch.End();
