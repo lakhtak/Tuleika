@@ -19,16 +19,19 @@ namespace TuleikaX
         private Texture2D _foodImage;
         //private GifAnimation.GifAnimation _sealImage;
         //private GifAnimation.GifAnimation _foodImage;
+        private SpriteFont _scoreFont;
+        private SpriteFont _giantFont;
 
         // seal
         private const int MaxGrowth = 3;
         private const float RotationSpeed = 0.05f;
         private const float MovingSpeed = 3.00f;
         const float GrowSpeed = 0.02f;
-        private float _size = 0.1f;
+        private const float InitialSize = 0.1f;
         private const float ChildSize = 0.05f;
         private const int ChildDistance = 20;
-        private const int MaxChildren = 10;
+        private const int MaxChildren = 30;
+        private float _sealSize = InitialSize;
         private Vector2 _sealPosition;
         private float _sealAngle;
         private readonly List<SealChild> _children = new List<SealChild>();
@@ -42,8 +45,7 @@ namespace TuleikaX
         private bool _paused;
         private bool _pauseKeyDown;
         private int _score;
-
-        private SpriteFont _font;
+        private bool _win;
 
         public TheGame()
         {
@@ -79,11 +81,14 @@ namespace TuleikaX
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Window.Title = "Тюлейка!";
+
             //_sealImage = Content.Load<GifAnimation.GifAnimation>("SealAnimation");
             _sealImage = Content.Load<Texture2D>("tulka");
             //_foodImage = Content.Load<GifAnimation.GifAnimation>("FoodAnimation");
             _foodImage = Content.Load<Texture2D>("fish");
-            _font = Content.Load<SpriteFont>("SealFont");
+            _scoreFont = Content.Load<SpriteFont>("SealFont");
+            _giantFont = Content.Load<SpriteFont>("WinFont");
         }
 
         /// <summary>
@@ -103,15 +108,16 @@ namespace TuleikaX
         {
             ReadUserInputs();
 
-            if (_paused) return;
+            if (_win || _paused) return;
 
             MoveSeal();
 
             if (SealEatsFood())
             {
                 CreateRandomFood();
-                _size += GrowSpeed;
+                _sealSize = InitialSize + GrowSpeed * (_score % MaxGrowth + 1);
                 _score++;
+                _win = _score > MaxChildren * MaxGrowth;
             }
 
             UpdateGifs(gameTime);
@@ -151,13 +157,13 @@ namespace TuleikaX
 
             CheckPause(keyboardState);
 
-            if (_paused) return;
+            if (_win || _paused) return;
 
-            if (keyboardState.IsKeyDown(Keys.D))
+            if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
             {
                 _sealAngle += RotationSpeed;
             }
-            else if (keyboardState.IsKeyDown(Keys.A))
+            else if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
             {
                 _sealAngle -= RotationSpeed;
             }
@@ -178,7 +184,7 @@ namespace TuleikaX
 
         private bool SealEatsFood()
         {
-            var sealRect = RectangleFromCenter(_sealPosition, _sealImage.Width, _sealImage.Height, _size);
+            var sealRect = RectangleFromCenter(_sealPosition, _sealImage.Width, _sealImage.Height, _sealSize);
             var foodRect = RectangleFromCenter(_foodPosition, _foodImage.Width, _foodImage.Height, _foodSize);
             return sealRect.Intersects(foodRect);
         }
@@ -205,18 +211,20 @@ namespace TuleikaX
             //_spriteBatch.Draw(_foodImage.GetTexture(), _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
             _spriteBatch.Draw(_foodImage, _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
             //_spriteBatch.Draw(_sealImage.GetTexture(), _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size, SpriteEffects.None, 1);
-            _spriteBatch.Draw(_sealImage, _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size + GrowSpeed * (_score % MaxGrowth), SpriteEffects.None, 1);
+            _spriteBatch.Draw(_sealImage, _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _sealSize, SpriteEffects.None, 1);
 
-            for (var i = 0; i < _score / MaxGrowth; i++)
+            for (var i = 0; i < (_score - 1) / MaxGrowth; i++)
             {
-                if (_children.Count > ChildDistance * i)
+                if (_children.Count > ChildDistance * (i + 1))
                 {
-                    _spriteBatch.Draw(_sealImage, _children[ChildDistance * i].Vector, null, Color.White, _children[ChildDistance * i].Angle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), ChildSize, SpriteEffects.None, 1);
+                    _spriteBatch.Draw(_sealImage, _children[ChildDistance * (i + 1)].Vector, null, Color.White, _children[ChildDistance * (i + 1)].Angle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), ChildSize, SpriteEffects.None, 1);
                 }
             }
 
-            _spriteBatch.DrawString(_font, "Score:" + _score, new Vector2(50, 50), Color.Black);
-            
+            _spriteBatch.DrawString(_scoreFont, "Score:" + _score, new Vector2(50, 50), Color.Black);
+            if (_win)
+                _spriteBatch.DrawString(_giantFont, "YOU WIN!!! <3<3<3", new Vector2(60, 150), Color.DarkViolet);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
