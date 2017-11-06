@@ -15,8 +15,9 @@ namespace TuleikaX
         SpriteBatch _spriteBatch;
 
         private Texture2D _sealImage;
+        private Texture2D _foodImage;
         //private GifAnimation.GifAnimation _sealImage;
-        private GifAnimation.GifAnimation _foodImage;
+        //private GifAnimation.GifAnimation _foodImage;
 
         // seal
         private const int MaxGrowth = 2;
@@ -77,7 +78,8 @@ namespace TuleikaX
 
             //_sealImage = Content.Load<GifAnimation.GifAnimation>("SealAnimation");
             _sealImage = Content.Load<Texture2D>("tulka");
-            _foodImage = Content.Load<GifAnimation.GifAnimation>("FoodAnimation");
+            //_foodImage = Content.Load<GifAnimation.GifAnimation>("FoodAnimation");
+            _foodImage = Content.Load<Texture2D>("fish");
             _font = Content.Load<SpriteFont>("SealFont");
         }
 
@@ -120,7 +122,7 @@ namespace TuleikaX
         private void UpdateGifs(GameTime gameTime)
         {
             //_sealImage.Update(gameTime.ElapsedGameTime.Ticks);
-            _foodImage.Update(gameTime.ElapsedGameTime.Ticks);
+            //_foodImage.Update(gameTime.ElapsedGameTime.Ticks);
         }
 
         private void MoveSeal()
@@ -197,7 +199,8 @@ namespace TuleikaX
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_foodImage.GetTexture(), _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
+            //_spriteBatch.Draw(_foodImage.GetTexture(), _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
+            _spriteBatch.Draw(_foodImage, _foodPosition, null, Color.White, 0, new Vector2(_foodImage.Width / 2, _foodImage.Height / 2), _foodSize, SpriteEffects.None, 1);
             //_spriteBatch.Draw(_sealImage.GetTexture(), _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size, SpriteEffects.None, 1);
             _spriteBatch.Draw(_sealImage, _sealPosition, null, Color.White, _sealAngle, new Vector2(_sealImage.Width / 2, _sealImage.Height / 2), _size, SpriteEffects.None, 1);
             
