@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuleikaM", "TuleikaM.csproj", "{67EB92A8-C8CD-4B91-B9B6-E7D974A9A9A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuleikaM", "TuleikaM\TuleikaM.csproj", "{67EB92A8-C8CD-4B91-B9B6-E7D974A9A9A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
