@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Linq;
 
-namespace TuleikaX
+namespace TuleikaM
 {
     /// <summary>
     /// This is the main type for your game
@@ -40,7 +40,7 @@ namespace TuleikaX
         private float _foodSize = 0.2f;
         private Vector2 _foodPosition;
         private Random _random = new Random();
-        
+
         // game
         private bool _paused;
         private bool _pauseKeyDown;
@@ -137,7 +137,7 @@ namespace TuleikaX
             _children.Insert(0, new SealChild { Vector = _sealPosition, Angle = _sealAngle });
             if (_children.Count > MaxChildren * ChildDistance)
                 _children.Remove(_children.Last());
-            
+
             if (_sealPosition.X > Window.ClientBounds.Width)
                 _sealPosition.X = 0;
             else if (_sealPosition.Y > Window.ClientBounds.Height)
@@ -191,8 +191,8 @@ namespace TuleikaX
 
         private Rectangle RectangleFromCenter(Vector2 center, float inputWidth, float inputHeight, float size)
         {
-            var height = (int)(inputHeight*size);
-            var width = (int)(inputWidth*size);
+            var height = (int)(inputHeight * size);
+            var width = (int)(inputWidth * size);
             var x = (int)center.X;
             var y = (int)center.Y;
 
