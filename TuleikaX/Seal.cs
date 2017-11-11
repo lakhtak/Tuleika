@@ -1,0 +1,6 @@
+﻿namespace TuleikaX
+{
+    class Seal
+    {
+    }
+}

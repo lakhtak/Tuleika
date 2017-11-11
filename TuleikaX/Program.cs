@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TuleikaX
+﻿namespace TuleikaX
 {
 #if WINDOWS || XBOX
     static class Program
@@ -10,7 +8,7 @@ namespace TuleikaX
         /// </summary>
         static void Main(string[] args)
         {
-            using (TheGame game = new TheGame())
+            using (var game = new SuperGame())
             {
                 game.Run();
             }

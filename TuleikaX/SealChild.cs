@@ -5,7 +5,15 @@ namespace TuleikaX
 {
     public struct SealChild
     {
-        public Vector2 Vector;
-        public float Angle;
+        public readonly Vector2 Position;
+        public readonly float Angle;
+        public readonly float Size;
+
+        public SealChild(Vector2 position, float angle, float size)
+        {
+            Position = position;
+            Angle = angle;
+            Size = size;
+        }
     }
 }
