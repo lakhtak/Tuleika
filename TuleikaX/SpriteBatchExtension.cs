@@ -25,7 +25,7 @@ namespace TuleikaX
                 0);
         }
 
-        public static void DrawLine(this SpriteBatch spriteBatch, Texture2D texture, Rectangle rectangle)
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Texture2D texture, Rectangle rectangle)
         {
             spriteBatch.Draw(texture, rectangle, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0);
         }

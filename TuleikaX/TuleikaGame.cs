@@ -31,6 +31,8 @@ namespace TuleikaX
         protected static float ChildSize = 0.06f;
         protected static int ChildDistance = 17;
         protected static int MaxChildren = 30;
+        protected static float NoseSize = 20;
+        
         protected float SealSize = InitialSize;
         protected Vector2 SealPosition;
         protected float SealAngle;
@@ -176,7 +178,7 @@ namespace TuleikaX
 
         protected bool SealEatsFood()
         {
-            var sealRect = RectangleFromCenter(SealPosition, SealImage.Width, SealImage.Height, SealSize);
+            var sealRect = GetSealHitbox();
             var foodRect = RectangleFromCenter(FoodPosition, FoodImage.Width, FoodImage.Height, FoodSize);
             return sealRect.Intersects(foodRect);
         }
@@ -207,31 +209,22 @@ namespace TuleikaX
 
         protected Rectangle GetSealHitbox()
         {
-            var halfWidth = (int)(SealImage.Width * SealSize / 2);
+            var nosePosition = new Vector2(SealPosition.X + SealImage.Width*SealSize/2 - NoseSize / 2, SealPosition.Y);
+            var rotatedNosePosition = RotateAboutOrigin(nosePosition, SealPosition, SealAngle);
 
-            if (SealAngle.Equals(Direction.Up))
-                return new Rectangle((int)SealPosition.X, (int)(SealPosition.Y - halfWidth), 1, halfWidth);
-            if (SealAngle.Equals(Direction.Down))
-                return new Rectangle((int)SealPosition.X, (int)SealPosition.Y, 1, halfWidth);
-            if (SealAngle.Equals(Direction.Left))
-                return new Rectangle((int)(SealPosition.X - halfWidth), (int)SealPosition.Y, halfWidth, 1);
-            if (SealAngle.Equals(Direction.Right))
-                return new Rectangle((int)SealPosition.X, (int)SealPosition.Y, halfWidth, 1);
-
-            return new Rectangle();
+            return RectangleFromCenter(rotatedNosePosition, NoseSize, NoseSize, 1);
         }
 
+        public Vector2 RotateAboutOrigin(Vector2 point, Vector2 origin, float rotation)
+        {
+            return Vector2.Transform(point - origin, Matrix.CreateRotationZ(rotation)) + origin;
+        }
+        
         protected Rectangle GetSealChildHitbox(SealChild seal)
         {
-            var width = (int)(SealImage.Width * seal.Size);
-            var halfWidth = width / 2;
-
-            if (seal.Angle.Equals(Direction.Up) || seal.Angle.Equals(Direction.Down))
-                return new Rectangle((int)seal.Position.X, (int)(seal.Position.Y - halfWidth), 1, width);
-            if (seal.Angle.Equals(Direction.Left) || seal.Angle.Equals(Direction.Right))
-                return new Rectangle((int)(seal.Position.X - halfWidth), (int)seal.Position.Y, width, 1);
-
-            return new Rectangle();
+            return new Rectangle((int) (seal.Position.X - SealImage.Width*seal.Size/4),
+                (int) (seal.Position.Y - SealImage.Width*seal.Size/4), (int) (SealImage.Width*seal.Size/2),
+                (int) (SealImage.Width*seal.Size/2));
         }
         
         /// <summary>
@@ -250,7 +243,7 @@ namespace TuleikaX
             SpriteBatch.Draw(SealImage, SealPosition, null, Color.White, SealAngle,
                 new Vector2(SealImage.Width/2, SealImage.Height/2), SealSize, SpriteEffects.None, 1);
 #if DEBUG
-            SpriteBatch.DrawLine(LineTexture, GetSealHitbox());
+            SpriteBatch.DrawRectangle(LineTexture, GetSealHitbox());
 #endif
             for (var i = 0; i < (Score - 1) / MaxGrowth; i++)
             {
@@ -260,7 +253,7 @@ namespace TuleikaX
                         SealChildren[ChildDistance*(i + 1)].Angle, new Vector2(SealImage.Width/2, SealImage.Height/2),
                         SealChildren[ChildDistance*(i + 1)].Size, SpriteEffects.None, 1);
 #if DEBUG
-                    SpriteBatch.DrawLine(LineTexture, GetSealChildHitbox(SealChildren[ChildDistance * (i + 1)]));
+                    SpriteBatch.DrawRectangle(LineTexture, GetSealChildHitbox(SealChildren[ChildDistance * (i + 1)]));
 #endif
                 }
             }
