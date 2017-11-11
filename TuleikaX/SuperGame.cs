@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System.Linq;
+﻿using Microsoft.Xna.Framework.Input;
 
 namespace TuleikaX
 {
@@ -12,11 +9,6 @@ namespace TuleikaX
         static SuperGame()
         {
             WindowTitle = "Тюлейка супер!";
-
-            // seal
-            MaxGrowth = 3;
-            ChildDistance = 15;
-            MaxChildren = 10;
         }
 
         protected override void ReadUserInputs()
@@ -32,11 +24,11 @@ namespace TuleikaX
 
             if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
             {
-                SealAngle += RotationSpeed;
+                Seal.SealAngle += RotationSpeed;
             }
             else if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
             {
-                SealAngle -= RotationSpeed;
+                Seal.SealAngle -= RotationSpeed;
             }
         }
     }
