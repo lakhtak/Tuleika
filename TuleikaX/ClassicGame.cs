@@ -22,23 +22,23 @@ namespace TuleikaX
 
             if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
             {
-                if (Seal.SealAngle.Equals(Direction.Up) || Seal.SealAngle.Equals(Direction.Down))
-                    Seal.SealAngle = Direction.Right;
+                if (Seal.Angle.Equals(Direction.Up) || Seal.Angle.Equals(Direction.Down))
+                    Seal.Angle = Direction.Right;
             }
             else if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
             {
-                if (Seal.SealAngle.Equals(Direction.Up) || Seal.SealAngle.Equals(Direction.Down))
-                    Seal.SealAngle = Direction.Left;
+                if (Seal.Angle.Equals(Direction.Up) || Seal.Angle.Equals(Direction.Down))
+                    Seal.Angle = Direction.Left;
             }
             else if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
             {
-                if (Seal.SealAngle.Equals(Direction.Left) || Seal.SealAngle.Equals(Direction.Right))
-                    Seal.SealAngle = Direction.Up;
+                if (Seal.Angle.Equals(Direction.Left) || Seal.Angle.Equals(Direction.Right))
+                    Seal.Angle = Direction.Up;
             }
             else if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
             {
-                if (Seal.SealAngle.Equals(Direction.Left) || Seal.SealAngle.Equals(Direction.Right))
-                    Seal.SealAngle = Direction.Down;
+                if (Seal.Angle.Equals(Direction.Left) || Seal.Angle.Equals(Direction.Right))
+                    Seal.Angle = Direction.Down;
             }
         }
     }

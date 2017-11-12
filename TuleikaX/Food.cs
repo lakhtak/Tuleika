@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TuleikaX
@@ -7,15 +8,18 @@ namespace TuleikaX
     public class Food
     {
         public Vector2 Position;
-        public static Texture2D Image;
+        public float Angle;
+        public readonly Texture2D Image;
+
         public const float Size = 0.1f;
 
         private readonly Random _random = new Random();
         private readonly GameWindow _gameWindow ;
 
-        public Food(GameWindow gameWindow)
+        public Food(GameWindow gameWindow, ContentManager content)
         {
             _gameWindow = gameWindow;
+            Image = content.Load<Texture2D>("fish");
         }
 
         public void CreateRandomFood()
@@ -29,6 +33,13 @@ namespace TuleikaX
             {
                 return Position.RectangleFromCenter(Image.Width * 0.8f, Image.Height * 0.9f, Size);
             }
+        }
+
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Image, Position, null, Color.White, Angle,
+                new Vector2(Image.Width/2, Image.Height/2), Size, SpriteEffects.None, 1);
         }
     }
 }

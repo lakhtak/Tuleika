@@ -24,11 +24,11 @@ namespace TuleikaX
 
             if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
             {
-                Seal.SealAngle += RotationSpeed;
+                Seal.Angle += RotationSpeed;
             }
             else if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
             {
-                Seal.SealAngle -= RotationSpeed;
+                Seal.Angle -= RotationSpeed;
             }
         }
     }

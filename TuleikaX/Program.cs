@@ -8,7 +8,7 @@
         /// </summary>
         static void Main(string[] args)
         {
-            using (var game = new SuperGame())
+            using (var game = new SuperDualGame())
             {
                 game.Run();
             }
