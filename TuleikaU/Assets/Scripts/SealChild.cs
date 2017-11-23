@@ -8,7 +8,7 @@ public class SealChild : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		mainSeal = GameObject.FindGameObjectWithTag("Seal").GetComponent<Seal>();
+		mainSeal = GameObject.FindGameObjectWithTag("Player").GetComponent<Seal>();
 		number = mainSeal.sealChildren.Count;
 	}
 	

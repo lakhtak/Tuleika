@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Place.cs" />
      <Compile Include="Assets\Scripts\Seal.cs" />
      <Compile Include="Assets\Scripts\SealChild.cs" />
+     <Compile Include="Assets\Scripts\TimeUpdater.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

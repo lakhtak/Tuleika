@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ public class Seal : MonoBehaviour {
 	public List<GameObject> sealChildren = new List<GameObject>();
 
 	public Text ScoreText;
-	public int Score = 0;
+	public int score;
 
 	// Use this for initialization
 	void Start ()
@@ -44,6 +45,8 @@ public class Seal : MonoBehaviour {
 		if (lastPositions.Count > ChildDistance * MaxChildren) {
 			lastPositions.Remove (lastPositions.Last ());
 		}
+
+        ScoreText.text = score.ToString(CultureInfo.InvariantCulture);
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
@@ -64,8 +67,9 @@ public class Seal : MonoBehaviour {
         else if (other.CompareTag("Child"))
         {
             var sealChild = other.GetComponent<SealChild>();
-            var childrenToRemove = sealChildren.Count - sealChild.number;
-            for (var i = 0; i <= childrenToRemove; i++)
+            var childrenToRemove = sealChildren.Count - sealChild.number + 1;
+            score = score - childrenToRemove;
+            for (var i = 0; i < childrenToRemove; i++)
             {
                 var currentChild = sealChildren.Last();
                 Instantiate(LonelyChildPrefab, currentChild.transform.position, currentChild.transform.rotation);
@@ -77,9 +81,9 @@ public class Seal : MonoBehaviour {
 
 	public void AddChild()
 	{
-		Score++;
+		score++;
 
-		var newChildPlace = GetChildPlace (Score);
+	    var newChildPlace = GetChildPlace(sealChildren.Count);
 		sealChildren.Add (Instantiate (SealChildPrefab, newChildPlace.position, newChildPlace.rotation));
 	}
 		
