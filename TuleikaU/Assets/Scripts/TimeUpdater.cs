@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +8,12 @@ public class TimeUpdater : MonoBehaviour
 {
     public Text TimeDisplay;
 
+    public static int CurrentTime;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+	    CurrentTime = 0;
         StartCoroutine(UpdateTimer());		
 	}
 	
@@ -23,7 +27,8 @@ public class TimeUpdater : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            TimeDisplay.text = ((int)Time.fixedTime).ToString(CultureInfo.InvariantCulture);
+            CurrentTime++;
+            TimeDisplay.text = CurrentTime.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

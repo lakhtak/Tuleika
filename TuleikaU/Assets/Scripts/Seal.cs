@@ -47,7 +47,7 @@ public class Seal : MonoBehaviour {
 	    {
             GameState.PlayerNumber = PlayerNumber;
             GameState.Score = score;
-            GameState.Time = (int)Time.fixedTime;
+            GameState.Time = TimeUpdater.CurrentTime;
             SceneManager.LoadScene(WinScene);
 	    }
 
