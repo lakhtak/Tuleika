@@ -10,12 +10,20 @@ public class TimeUpdater : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		
+        StartCoroutine(UpdateTimer());		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    TimeDisplay.text = Time.fixedTime.ToString(CultureInfo.InvariantCulture);
 	}
+
+    IEnumerator UpdateTimer()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            TimeDisplay.text = ((int)Time.fixedTime).ToString(CultureInfo.InvariantCulture);
+        }
+    }
 }

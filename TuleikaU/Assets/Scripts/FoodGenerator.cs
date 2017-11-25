@@ -10,7 +10,7 @@ public class FoodGenerator : MonoBehaviour {
 
 	void Update()
 	{
-		if (currentFood)
+        if (GameState.Paused || currentFood)
 			return;
 
 		var randomPosition = new Vector2(Random.Range(XSize*-1,XSize),Random.Range(YSize*-1,YSize));

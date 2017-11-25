@@ -2,20 +2,27 @@
 
 public class SealChild : MonoBehaviour {
 
-	public Seal mainSeal;
+	public Seal MainSeal;
+	public int Number;
 
-	public int number;
+    private Transform myTransform;
 
 	// Use this for initialization
 	void Start () {
-		mainSeal = GameObject.FindGameObjectWithTag("Player").GetComponent<Seal>();
-		number = mainSeal.sealChildren.Count;
+        Number = MainSeal.sealChildren.Count;
 	}
-	
+
+    void Awake()
+    {
+        myTransform = transform;
+    }
+
 	// Update is called once per frame
 	void Update () {
-        var myPlace = mainSeal.GetChildPlace(number);
-		transform.localPosition = myPlace.position;
-		transform.localRotation = myPlace.rotation;
+        if (GameState.Paused) return;
+
+        var myPlace = MainSeal.GetChildPlace(Number);
+        myTransform.localPosition = myPlace.position;
+        myTransform.localRotation = myPlace.rotation;
 	}
 }
