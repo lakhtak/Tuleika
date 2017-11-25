@@ -1,36 +1,47 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Seal : MonoBehaviour {
 
-	public float Speed = 10;
-	public float RotationSpeed = 300;
-	public int ChildDistance = 20;
-	public int MaxChildren = 100;
-	public KeyCode LeftKey = KeyCode.A;
-	public KeyCode RightKey = KeyCode.D;
+	public float Speed;
+	public float RotationSpeed;
+	public int ChildDistance;
+	public int MaxChildren;
+	public KeyCode LeftKey;
+	public KeyCode RightKey;
     public GameObject SealChildPrefab;
     public GameObject LonelyChildPrefab;
     public Text ScoreText;
     public string WinScene;
     public int PlayerNumber;
+
+    public AudioClip Crunch1;
+    public AudioClip Crunch2;
+    public AudioClip Crunch3;
+    public AudioClip SealHit;
+    public AudioClip Escape;
+
+    private int score;
 	
 	public List<GameObject> sealChildren = new List<GameObject>();
     
     private readonly List<Place> lastPositions = new List<Place>();
-    public int score;
+    private AudioSource audioSource;
+    private AudioClip[] crunches;
 
     private Transform myTransform;
 
 	// Use this for initialization
 	void Start ()
 	{
+	    audioSource = GetComponent<AudioSource>();
+	    crunches = new[] {Crunch1, Crunch2, Crunch3};
 	}
 
     void Awake()
@@ -45,10 +56,7 @@ public class Seal : MonoBehaviour {
 
 	    if (score >= MaxChildren)
 	    {
-            GameState.PlayerNumber = PlayerNumber;
-            GameState.Score = score;
-            GameState.Time = TimeUpdater.CurrentTime;
-            SceneManager.LoadScene(WinScene);
+	        Win();
 	    }
 
         myTransform.Translate(Vector2.right * Speed);
@@ -63,6 +71,7 @@ public class Seal : MonoBehaviour {
         }
 	    if (Input.GetKey(KeyCode.Escape))
 	    {
+            audioSource.PlayOneShot(Escape);
 	        SceneManager.LoadScene("Menu");
 	    }
 
@@ -72,10 +81,19 @@ public class Seal : MonoBehaviour {
 		}
 	}
 
+    private void Win()
+    {
+        GameState.PlayerNumber = PlayerNumber;
+        GameState.Score = score;
+        GameState.Time = TimeUpdater.CurrentTime;
+        SceneManager.LoadScene(WinScene);
+    }
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag ("Food")) 
+		if (other.CompareTag ("Food"))
 		{
+		    audioSource.PlayOneShot(crunches[Random.Range(0, crunches.Length - 1)]);
 			AddChild ();
 			Destroy (other.gameObject);
 		} 
@@ -89,6 +107,8 @@ public class Seal : MonoBehaviour {
         }
         else if (other.CompareTag("Child") && sealChildren.Contains(other.gameObject))
         {
+            audioSource.PlayOneShot(SealHit);
+
             SealChild sealChild = other.GetComponent<SealChild>();
             int childrenToRemove = sealChildren.Count - sealChild.Number + 1;
             
