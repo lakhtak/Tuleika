@@ -299,8 +299,6 @@ __pycache__/
 *.xsd.cs
 
 # Tuleika some ignore
-*.sln
-*.userprefs
-*.csproj
-Library/
+Library/metadata/
+Library/ShaderCache/
 obj/
