@@ -95,6 +95,7 @@ public class Seal : MonoBehaviour {
 		{
 		    audioSource.PlayOneShot(crunches[Random.Range(0, crunches.Length - 1)]);
 			AddChild ();
+			GameObject.FindGameObjectWithTag("Timeline").GetComponent<Timeline> ().setCurrentTime (10);
 			Destroy (other.gameObject);
 		} 
 		else if (other.CompareTag ("HorizontalBound")) 
