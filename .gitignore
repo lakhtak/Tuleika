@@ -298,7 +298,6 @@ __pycache__/
 *.xsd.cs
 
 # Tuleika some ignore
-TuleikaU/Library/metadata/
-TuleikaU/Library/ShaderCache/
-TuleikaU/Temp/
-TuleikaU/obj/
+Library/metadata/
+Library/ShaderCache/
+obj/
