@@ -8,12 +8,14 @@ public class Pause : MonoBehaviour {
     public float PauseVolume;
     public AudioSource ParentAudioSource;
 
+    private float unpauseVolume;
     private AudioSource audioSource;
 
     // Use this for initialization
 	void Start ()
 	{
 	    audioSource = GetComponent<AudioSource>();
+        unpauseVolume = ParentAudioSource.volume;
 	}
 	
 	// Update is called once per frame
@@ -22,14 +24,14 @@ public class Pause : MonoBehaviour {
 
 	    if (GameState.Paused)
 	    {
-            ParentAudioSource.volume = GameState.MusicVolume;
+            ParentAudioSource.volume = unpauseVolume;
             audioSource.PlayOneShot(UnpauseSound);
             Time.timeScale = 1f;
 	    }
 	    else
 	    {
             audioSource.PlayOneShot(PauseSound);
-            ParentAudioSource.volume = GameState.MusicVolume * PauseVolume;
+            ParentAudioSource.volume = PauseVolume;
             Time.timeScale = 0f;	        
 	    }
 
